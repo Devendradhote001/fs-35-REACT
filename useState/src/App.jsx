@@ -1,20 +1,27 @@
 import React, { useState } from "react";
+import Login from "./components/Login";
+import Register from "./components/Register";
 
 const App = () => {
   console.log("app rendered..");
-  let [count, setCount] = useState(0);
+
+  const [toggle, setToggle] = useState(false);
+  let [count, setCount] = useState(["avyan", "piyush", "pintu"]);
+  console.log(count);
 
   let handleChange = () => {
-    setCount((prev) => prev + 1);
-    setCount((prev) => prev + 1);
-    setCount((prev) => prev + 1);
+    count[1] = "elevish";
+    setCount([...count]);
   };
 
   return (
     <div>
       <h1>App</h1>
-      <h1>Count is - {count}</h1>
-      <button onClick={handleChange}>Inc</button>
+      {toggle ? (
+        <Login setToggle={setToggle} />
+      ) : (
+        <Register setToggle={setToggle} />
+      )}
     </div>
   );
 };

@@ -12,6 +12,10 @@ const App = () => {
     },
   ];
 
+
+
+  a();
+
   return (
     <div
       style={{
@@ -24,7 +28,6 @@ const App = () => {
       <ProductCard detail={data[0]} />
       <ProductCard detail={data[0]} />
       <ProductCard detail={data[0]} />
-
     </div>
   );
 };
