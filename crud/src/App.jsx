@@ -278,6 +278,8 @@ const App = () => {
     },
   ]);
 
+  
+
   let handleDelete = (id) => {
     let updatedProducts = products.filter((elem) => elem.id !== id);
     setProducts(updatedProducts);
