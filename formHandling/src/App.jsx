@@ -1,28 +1,38 @@
 import React, { useState } from "react";
-import ProductCard from "./components/ProductCard";
 
 const App = () => {
   const [formValues, setFormValues] = useState({});
-  const [users, setUsers] = useState([]);
-  console.log(users);
+  const [products, setProducts] = useState([]);
+  const [isEdited, setIsEdited] = useState(false);
+  console.log(products);
+
+  console.log(formValues);
 
   let handleChange = (e) => {
-    setFormValues({ ...formValues, [e.target.name]: e.target.value });
-  };
-
-  let handleUpdate = (editUser) => {
-    console.log(editUser);
-    setFormValues(editUser);
+    let { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
   };
 
   let handleSubmit = (e) => {
     e.preventDefault();
+    setProducts((prev) => {
+      return prev.map((elem) => {
+        return elem.price === formValues.price
+          ? { ...elem, ...formValues }
+          : elem;
+      });
+    });
+    if (isEdited) {
+      setIsEdited(false);
+    } else {
+      setProducts([...products, formValues]);
+    }
 
-    setUsers([...users, formValues]);
     setFormValues({
-      name: "",
-      email: "",
-      mobile: "",
+      product_name: "",
+      category: "",
+      price: "",
+      description: "",
     });
   };
 
@@ -32,36 +42,58 @@ const App = () => {
 
       <form onSubmit={handleSubmit} action="">
         <input
-          value={formValues.name}
-          name="name"
+          required
+          value={formValues.product_name}
+          name="product_name"
           onChange={handleChange}
           type="text"
-          placeholder="Name"
+          placeholder="Product name"
         />{" "}
         <br /> <br />
         <input
-          value={formValues.email}
-          name="email"
+          required
+          value={formValues.category}
+          name="category"
           onChange={handleChange}
           type="text"
-          placeholder="Email"
+          placeholder="Category"
         />{" "}
         <br /> <br />
         <input
-          value={formValues.mobile}
-          name="mobile"
+          required
+          value={formValues.price}
+          name="price"
           onChange={handleChange}
-          type="number"
-          placeholder="Mobile"
+          type="text"
+          placeholder="Price"
         />{" "}
         <br /> <br />
-        <button>Submit</button>
+        <input
+          required
+          value={formValues.description}
+          name="description"
+          onChange={handleChange}
+          type="text"
+          placeholder="Description"
+        />{" "}
+        <br /> <br />
+        <button>Create</button>
       </form>
 
-      <div style={{ display: "flex" }}>
-        {users?.map((elem) => {
-          return <ProductCard user={elem} handleUpdate={handleUpdate} />;
-        })}
+      <div style={{ display: "flex", gap: "10px" }}>
+        {products.map((elem) => (
+          <div>
+            <h3>{elem.product_name}</h3>
+            <button
+              onClick={() => {
+                setFormValues(elem);
+                setIsEdited(true);
+              }}
+            >
+              update
+            </button>
+          </div>
+        ))}
       </div>
     </div>
   );
