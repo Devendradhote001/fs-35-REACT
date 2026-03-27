@@ -15,14 +15,9 @@ const App = () => {
 
   let handleSubmit = (e) => {
     e.preventDefault();
-    setProducts((prev) => {
-      return prev.map((elem) => {
-        return elem.price === formValues.price
-          ? { ...elem, ...formValues }
-          : elem;
-      });
-    });
+    
     if (isEdited) {
+      set
       setIsEdited(false);
     } else {
       setProducts([...products, formValues]);
