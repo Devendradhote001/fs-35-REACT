@@ -1,6 +1,6 @@
 import React from "react";
 
-const Navbar = ({ setToggle }) => {
+const Navbar = ({ setToggle, toggle }) => {
   return (
     <div className="h-[10%] shadow-xl border border-gray-300 px-10 flex items-center justify-between">
       <h1 className="font-bold text-2xl">Logo</h1>
@@ -13,7 +13,7 @@ const Navbar = ({ setToggle }) => {
         onClick={() => setToggle((prev) => !prev)}
         className="px-6 py-3 text-white bg-blue-600 rounded-xl cursor-pointer"
       >
-        Add Employee
+        {toggle ? "Go to Employees" : "Add Employee"}
       </button>
     </div>
   );
