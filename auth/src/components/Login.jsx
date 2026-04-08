@@ -12,27 +12,26 @@ const Login = () => {
     mode: "onChange",
   });
 
-  let { setToggle, registeredUsers } = useContext(Auth);
+  let { setToggle, registeredUsers, setLoggedInUser } = useContext(Auth);
 
-  console.log(registeredUsers);
   let handleFormSubmit = (data) => {
-    console.log("data", data);
     let user = registeredUsers.find(
-      (elem) => elem.email === data.email
+      (elem) => elem.email === data.email && elem.password === data.password
     );
-
-    console.log(user);
 
     if (!user) {
       alert("Login failed");
       return;
     }
 
+    localStorage.setItem("log user", JSON.stringify(user));
+    setLoggedInUser(user);
+
     alert("user loggedin");
   };
 
   return (
-    <div className=" h-screen bg-gray-400 w-full flex flex-col items-center justify-center">
+    <div className=" bg-gray-400 w-full flex flex-col items-center justify-center">
       <h1>Login</h1>
 
       <form
