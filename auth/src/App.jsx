@@ -4,6 +4,7 @@ import Register from "./components/Register";
 import { Auth } from "./context/AuthContext";
 
 const App = () => {
+  let lsd = JSON.parse(localStorage.getItem("log user"));
   let { toggle, registeredUsers, setLoggedInUser } = useContext(Auth);
 
   return (
