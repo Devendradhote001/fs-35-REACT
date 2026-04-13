@@ -30,6 +30,7 @@ const App = () => {
   useEffect(() => {
     getData();
   }, []);
+
   return (
     <div>
       <h1>App</h1>
