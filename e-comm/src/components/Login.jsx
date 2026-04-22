@@ -1,8 +1,13 @@
 import React, { useContext } from "react";
 
 import { useForm } from "react-hook-form";
+import { Auth } from "../context/AuthContext";
+import { useNavigate } from "react-router";
 
 const Login = ({ setToggle }) => {
+  let { registerUsers, setLoggedInUSer } = useContext(Auth);
+  let navigate = useNavigate();
+
   let {
     register,
     handleSubmit,
@@ -13,7 +18,17 @@ const Login = ({ setToggle }) => {
   });
 
   let handleFormSubmit = (data) => {
-    console.log(data);
+    let user = registerUsers.find(
+      (elem) => elem.email === data.email && elem.password === data.password
+    );
+
+    if (!user) return alert("User not found");
+
+    localStorage.setItem("log user", JSON.stringify(user));
+
+    alert("user loggedin");
+    setLoggedInUSer(user);
+    navigate("/");
   };
 
   return (

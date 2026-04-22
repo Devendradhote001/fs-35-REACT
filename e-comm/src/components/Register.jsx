@@ -20,6 +20,8 @@ const Register = ({ setToggle }) => {
     let arr = [...registerUsers, { ...data, id: nanoid() }];
     setRegisterUsers(arr);
     localStorage.setItem("reg users", JSON.stringify(arr));
+    alert("user registered");
+    reset();
   };
 
   return (
