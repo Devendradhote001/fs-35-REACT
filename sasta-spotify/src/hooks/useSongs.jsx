@@ -14,6 +14,15 @@ export let useSongs = () => {
       audioRef.current.play();
     }
   }, [currentSong]);
+  
+  useEffect(() => {
+
+    if (isPlaying) {
+      audioRef.current.play();
+    } else {
+      audioRef.current.pause();
+    }
+  }, [isPlaying]);
 
   let handlePlay = (song) => {
     dispatch(addSong(song));
