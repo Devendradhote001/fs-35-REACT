@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import Home from "../pages/Home";
 import About from "../pages/About";
@@ -9,8 +9,27 @@ import Login from "../pages/Login";
 import MainLayout from "../layout/MainLayout";
 import PublicRoute from "../protectedRoutes/PublicRoute";
 import ProtectedRoute from "../protectedRoutes/ProtectedRoute";
+import { axiosInstance } from "../config/axiosInstance";
+import { useDispatch } from "react-redux";
+import { addUser } from "../state/authReducer";
 
 const AppRoutes = () => {
+  let dispatch = useDispatch();
+
+  useEffect(() => {
+    let getCurrentUser = async () => {
+      try {
+        let res = await axiosInstance.get("/api/auth/me");
+        console.log("res from me api", res);
+        dispatch(addUser(res.data.user));
+      } catch (error) {
+        console.log("error in current user", error);
+      }
+    };
+
+    getCurrentUser();
+  }, []);
+
   let router = createBrowserRouter([
     {
       path: "/",

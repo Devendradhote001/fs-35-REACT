@@ -1,9 +1,12 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
-import { axiosInstance } from "../config/axiosInstance";
 import { loginApi, registerApi } from "../api/authApis";
+import { useDispatch } from "react-redux";
+import { addUser } from "../state/authReducer";
 
 export let useAuth = () => {
+  let dispatch = useDispatch();
+
   let navigate = useNavigate();
   const {
     register,
@@ -12,11 +15,9 @@ export let useAuth = () => {
   } = useForm();
 
   const onLogin = async (formData) => {
-    // let { data } = useQuery({
-    //   queryKey: ["auth"],
-    //   queryFn: () => loginApi(formData),
-    // });
-    // console.log(data);
+    let res = await loginApi(formData);
+    console.log("login res", res);
+    dispatch(addUser(res.data.data));
   };
 
   const onRegister = async (data) => {

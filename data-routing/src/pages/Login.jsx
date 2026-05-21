@@ -1,18 +1,8 @@
 import React from "react";
 import { useAuth } from "../hooks/useAuth";
-import { useQuery } from "@tanstack/react-query";
-import { loginApi } from "../api/authApis";
 
 const Login = () => {
-  let { handleSubmit, register, errors, navigate } = useAuth();
-
-  const onLogin = async (formData) => {
-    let { data } = useQuery({
-      queryKey: ["auth"],
-      queryFn: async () => await loginApi(formData),
-    });
-    console.log(data);
-  };
+  let { handleSubmit, register, errors, navigate, onLogin } = useAuth();
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
