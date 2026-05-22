@@ -4,7 +4,7 @@ let authSlice = createSlice({
   name: "auth",
   initialState: {
     user: null,
-    isLoading: true,
+    isLoading: false,
   },
   reducers: {
     addUser: (state, action) => {
@@ -15,6 +15,9 @@ let authSlice = createSlice({
       state.user = null;
     },
   },
+  extraReducers:(builder) =>{
+
+  }
 });
 
 export let { addUser, removeUser } = authSlice.actions;

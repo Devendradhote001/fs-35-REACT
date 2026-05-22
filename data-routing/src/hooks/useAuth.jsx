@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { loginApi, registerApi } from "../api/authApis";
 import { useDispatch } from "react-redux";
 import { addUser } from "../state/authReducer";
+import { loginUserAction } from "../state/authAction";
 
 export let useAuth = () => {
   let dispatch = useDispatch();
@@ -15,9 +16,8 @@ export let useAuth = () => {
   } = useForm();
 
   const onLogin = async (formData) => {
-    let res = await loginApi(formData);
-    console.log("login res", res);
-    dispatch(addUser(res.data.data));
+    dispatch(loginUserAction(formData));
+
   };
 
   const onRegister = async (data) => {
