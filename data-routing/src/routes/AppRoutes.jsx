@@ -12,19 +12,14 @@ import ProtectedRoute from "../protectedRoutes/ProtectedRoute";
 import { axiosInstance } from "../config/axiosInstance";
 import { useDispatch } from "react-redux";
 import { addUser } from "../state/authReducer";
+import { currentLoginAction } from "../state/authAction";
 
 const AppRoutes = () => {
   let dispatch = useDispatch();
 
   useEffect(() => {
     let getCurrentUser = async () => {
-      try {
-        let res = await axiosInstance.get("/api/auth/me");
-        console.log("res from me api", res);
-        dispatch(addUser(res.data.user));
-      } catch (error) {
-        console.log("error in current user", error);
-      }
+      dispatch(currentLoginAction());
     };
 
     getCurrentUser();
